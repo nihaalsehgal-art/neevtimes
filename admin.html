@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor's Desk • Neev Times</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <h2>Editor Access</h2>
+            <input type="password" id="adminPassword" placeholder="Enter Password">
+            <button id="loginBtn" class="hero-btn" style="background: white; color: black; border: none; width: 100%; margin-top: 15px;">Enter Desk</button>
+            <p id="loginError" style="color: #ff6b6b; font-size: 0.9rem; margin-top: 15px; display: none;">Incorrect Password</p>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="logo">Neev Times. <span class="badge">Editor</span></div>
+        <div class="nav-right">
+            <nav class="main-nav"><a href="index.html" class="nav-link">View Live Site &rarr;</a></nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="admin-wrapper hero-editor">
+            <h2 style="margin-top:0;">Homepage Hero Section</h2>
+            <p style="opacity:0.6; font-size:0.9rem; margin-bottom:20px;">Change the main image and headline on the home page.</p>
+            
+            <form id="heroForm" class="admin-form">
+                <div class="form-group">
+                    <label>Top Tagline (e.g., Special Report)</label>
+                    <input type="text" id="heroTagline" placeholder="Est. 2024">
+                </div>
+
+                <div class="split-row">
+                    <div class="form-group">
+                        <label>Main Headline</label>
+                        <input type="text" id="heroTitle" placeholder="The Neev Times">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtext</label>
+                        <input type="text" id="heroSub" placeholder="Voice of the Students">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Hero Image URL</label>
+                    <input type="url" id="heroImg" placeholder="https://...">
+                </div>
+                
+                <button type="submit" style="background:#333; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:4px;">Update Hero Section</button>
+            </form>
+        </div>
+
+
+        <div class="admin-wrapper">
+            <h1>Compose Article</h1>
+            <form id="publishForm" class="admin-form">
+                <input type="hidden" id="editId" value="">
+
+                <div class="form-group">
+                    <label>Headline</label>
+                    <input type="text" id="inpTitle" required>
+                </div>
+
+                <div class="split-row">
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" id="inpAuthor" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tags (Select Multiple)</label>
+                        <div class="tag-container">
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Opinion Writing"> Opinion Writing</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Book Recommendations"> Book Recommendations</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Student Voice"> Student Voice</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="News & Opinion Affairs"> News & Opinion Affairs</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Leadership Speak"> Leadership Speak</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Internal Affairs"> Internal Affairs</label>
+                            <label class="tag-item"><input type="checkbox" name="tags" value="Junkyard"> Junkyard</label>
+                        </div>
+                        <input type="text" id="customTag" placeholder="+ Create New Tag" style="margin-top:10px; font-size:0.85rem; padding:8px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cover Image URL</label>
+                    <input type="url" id="inpImage" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Excerpt</label>
+                    <textarea id="inpExcerpt" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="inpContent" rows="15" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="hero-btn" style="background:var(--text-color); color:var(--bg-color)!important; border:none; cursor:pointer;">Publish to Database</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="admin-wrapper" style="margin-top: 0; padding-top: 0;">
+            <h2 style="border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">Manage Articles</h2>
+            <div id="admin-article-list" class="admin-list"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

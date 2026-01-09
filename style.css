@@ -1,0 +1,309 @@
+/* --- Imports & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+/* --- Global Variables --- */
+:root {
+    /* --- LIGHT MODE (High Contrast Fix) --- */
+    --bg-color: #ffffff;
+    --text-color: #050505;       /* Pure black for readability */
+    --secondary-text: #4a4a4a;   /* Dark gray */
+    --border-color: #d1d1d1;
+    --accent-color: #000000;
+    --input-bg: #f4f4f4;         /* Distinct background for inputs */
+    
+    /* Fonts */
+    --font-serif: 'Georgia', serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    /* Dropdowns */
+    --dropdown-bg: #ffffff;
+    --dropdown-shadow: rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] {
+    /* --- DARK MODE --- */
+    --bg-color: #111111;
+    --text-color: #ffffff;
+    --secondary-text: #a0a0a0;
+    --border-color: #333333;
+    --accent-color: #ffffff;
+    --input-bg: #1a1a1a;
+    
+    --dropdown-bg: #1a1a1a;
+    --dropdown-shadow: rgba(0,0,0,0.5);
+}
+
+/* --- Global Resets --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+a:hover { opacity: 0.7; }
+
+/* --- 1. GLOBAL LAYOUT (Fixes content hiding behind nav) --- */
+main {
+    flex: 1;
+    /* Push all content down so fixed header doesn't cover it */
+    padding-top: 100px; 
+}
+
+/* --- 2. FIXED NAVBAR STYLES (Layout & Animation) --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    
+    /* Layout: Force Logo and Right Nav to stay in one row */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 40px;
+    
+    /* Default: Transparent */
+    background-color: transparent; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: all 0.4s ease;
+}
+
+.logo { 
+    font-family: var(--font-serif); 
+    font-size: 1.8rem; 
+    font-weight: 200; 
+    letter-spacing: -0.5px;
+    flex-shrink: 0; 
+}
+
+.nav-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px;
+}
+
+/* --- 3. LIGHT MODE HEADER LOGIC (The Smart Color Switch) --- */
+
+/* DEFAULT (Top of page): Text is WHITE to be visible on Hero Image */
+body:not([data-theme="dark"]) .site-header {
+    color: #ffffff; 
+}
+body:not([data-theme="dark"]) .site-header a,
+body:not([data-theme="dark"]) .site-header .logo {
+    color: #ffffff;
+}
+/* Glassy Search Input at top */
+body:not([data-theme="dark"]) .site-header .search-input {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: #ffffff !important;
+}
+body:not([data-theme="dark"]) .site-header .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* SCROLLED (Down the page): Background turns WHITE, Text turns BLACK */
+body:not([data-theme="dark"]) .site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 40px;
+    color: #000000; /* Text flips to black */
+}
+body:not([data-theme="dark"]) .site-header.scrolled a,
+body:not([data-theme="dark"]) .site-header.scrolled .logo {
+    color: #000000;
+}
+/* Solid Gray Search Input when scrolled */
+body:not([data-theme="dark"]) .site-header.scrolled .search-input {
+    background: #f4f4f4 !important;
+    border-color: #ccc !important;
+    color: #000000 !important;
+}
+body:not([data-theme="dark"]) .site-header.scrolled .search-input::placeholder {
+    color: #666;
+}
+
+/* --- 4. DARK MODE HEADER LOGIC --- */
+[data-theme="dark"] .site-header.scrolled {
+    background-color: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #333;
+}
+/* In dark mode, text stays white always, so no extra overrides needed */
+
+
+/* --- Search Input Styling --- */
+.search-input {
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    width: 200px;
+    font-size: 0.85rem; 
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+.search-input:focus { outline: none; }
+
+
+/* --- DROPDOWN NAVIGATION --- */
+.nav-item { position: relative; padding: 10px 0; cursor: pointer; }
+.nav-link { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; padding-bottom: 5px; }
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: var(--dropdown-bg);
+    min-width: 200px;
+    box-shadow: 0 10px 30px var(--dropdown-shadow);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px 0;
+    opacity: 0; visibility: hidden; 
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.nav-item:hover .dropdown-menu {
+    opacity: 1; visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a { display: block; padding: 10px 20px; font-size: 0.85rem; border-bottom: 1px solid transparent; }
+.dropdown-menu a:hover { background-color: var(--border-color); opacity: 1; }
+
+.badge { font-size: 0.6rem; background: var(--text-color); color: var(--bg-color); padding: 2px 5px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+
+
+/* --- HERO SECTION --- */
+/* This pulls the hero UP so it sits BEHIND the transparent nav */
+/* --- HERO SECTION (Fixed Full Screen) --- */
+.hero {
+    position: relative;
+    
+    /* 1. Force Full Screen Dimensions */
+    width: 100vw; 
+    /* We add 100px to height to compensate for the -100px margin shift */
+    min-height: calc(100vh + 100px); 
+    
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: white; 
+    
+    /* 2. Break out of any parent containers to hit the edges */
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    
+    /* 3. Pull up behind the Fixed Navbar */
+    margin-top: -100px; 
+    padding-top: 100px; /* Internal padding so text isn't hidden by nav */
+}
+
+/* Ensure images cover the new taller area */
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; 
+}
+.hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); z-index: 2; }
+.hero-content { position: relative; z-index: 3; max-width: 600px; padding-left: 8%; margin-top: 50px; }
+.hero-tagline { text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 600; opacity: 0.9; display: block; margin-bottom: 15px; color: #aed9e0; }
+.hero h1 { font-family: var(--font-serif); font-size: 5rem; line-height: 1; margin-bottom: 20px; }
+.hero-sub { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; max-width: 450px; font-weight: 300; }
+.hero-btn { display: inline-block; padding: 12px 30px; border: 1px solid white; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; color: white !important; }
+.hero-btn:hover { background: white; color: #000 !important; }
+
+
+/* --- MAIN CONTENT & GRID --- */
+.container { max-width: 1100px; margin: 80px auto; padding: 0 20px; min-height: 500px; }
+.section-header { margin-bottom: 40px; }
+.section-header h2 { font-family: var(--font-serif); font-size: 2rem; }
+.divider { border: 0; border-top: 1px solid var(--border-color); margin-top: 10px; }
+
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding-bottom: 80px; }
+.news-card { display: flex; flex-direction: column; }
+.card-img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 15px; border-radius: 2px; transition: transform 0.5s ease; }
+.news-card:hover .card-img { transform: scale(1.03); }
+.news-card h3 { font-family: var(--font-serif); font-size: 1.4rem; line-height: 1.3; margin-bottom: 10px; }
+.news-card h3 a { color: var(--text-color); }
+.meta { font-size: 0.75rem; color: var(--secondary-text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+
+/* --- SINGLE ARTICLE --- */
+.single-article { max-width: 740px; margin: 40px auto; padding-bottom: 80px; }
+.article-header { text-align: center; margin-bottom: 40px; }
+.article-category { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: var(--secondary-text); display: block; margin-bottom: 15px; }
+.single-article h1 { font-family: var(--font-serif); font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+.article-body { font-family: 'Georgia', serif; font-size: 1.15rem; line-height: 1.8; color: var(--text-color); }
+.article-body p { margin-bottom: 25px; }
+.article-body h3 { font-family: var(--font-sans); font-size: 1.5rem; margin-top: 40px; margin-bottom: 15px; font-weight: 600; }
+/* Image Fix */
+.single-article-img { max-width: 100%; height: auto; display: block; margin: 0 auto 30px auto; max-height: 80vh; object-fit: contain; border-radius: 2px; }
+
+
+/* --- ADMIN INTERFACE --- */
+.admin-wrapper { max-width: 800px; margin: 40px auto; padding-bottom: 100px; }
+.admin-wrapper h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+.admin-form .form-group { margin-bottom: 25px; }
+.split-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.admin-form label { display: block; font-family: 'Helvetica Neue', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; color: var(--secondary-text); }
+.admin-form input, .admin-form select, .admin-form textarea { width: 100%; padding: 12px 15px; background-color: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); font-family: var(--font-sans); font-size: 1rem; border-radius: 4px; transition: all 0.3s; }
+.admin-form input:focus, .admin-form textarea:focus { outline: none; border-color: var(--text-color); box-shadow: 0 0 0 2px rgba(125,125,125,0.1); }
+
+/* NEW: Admin Tag Manager Styles */
+.tag-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: var(--bg-color); border: 1px solid var(--border-color); padding: 15px; border-radius: 4px; max-height: 200px; overflow-y: auto; }
+.tag-item { display: flex; align-items: center; font-size: 0.9rem; cursor: pointer; color: var(--text-color); }
+.tag-item input { width: auto; margin-right: 10px; }
+
+/* NEW: Hero Editor Styles */
+.hero-editor { background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 40px; border: 1px solid #ddd; }
+[data-theme="dark"] .hero-editor { background: #222; border-color: #444; }
+
+/* Admin Dashboard List */
+.admin-list { display: flex; flex-direction: column; gap: 15px; }
+.admin-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 4px; }
+.admin-item h4 { margin-bottom: 5px; font-size: 1rem; color: var(--text-color); }
+.admin-actions { display: flex; gap: 10px; }
+.btn-edit { background: #e0e0e0; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; color: #333; }
+.btn-delete { background: #ff6b6b; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; color: white; }
+
+/* --- LOGIN OVERLAY --- */
+.login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 10000; display: flex; justify-content: center; align-items: center; }
+.login-box { background: #1a1a1a; padding: 40px; border: 1px solid #333; border-radius: 4px; text-align: center; width: 300px; color: white; }
+.login-box input { width: 100%; padding: 10px; background: #000; border: 1px solid #333; color: white; border-radius: 4px; margin-bottom: 10px;}
+
+
+/* --- FOOTER --- */
+.site-footer-modern { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px; border-top: 1px solid var(--border-color); background-color: var(--bg-color); position: relative; }
+.footer-container { max-width: 1400px; width: 100%; margin: 0 auto; height: 90vh; display: flex; flex-direction: column; justify-content: space-between; }
+.footer-links { display: flex; flex-direction: column; width: 100%; max-width: 900px; margin-left: auto; margin-top: 40px; }
+.link-row { display: flex; justify-content: space-between; align-items: baseline; padding: 40px 0; border-bottom: 1px solid var(--border-color); }
+.link-label { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--secondary-text); width: 30%; }
+.link-value { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1.5rem; font-weight: 400; color: var(--text-color); text-align: right; width: 70%; word-break: break-all; }
+.footer-bottom-row { position: relative; margin-top: auto; padding-bottom: 10px; }
+.big-contact-title { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17vw; line-height: 0.8; font-weight: 700; letter-spacing: -0.04em; color: var(--text-color); margin: 0; margin-left: -5px; white-space: nowrap; padding-right: 250px; pointer-events: none; }
+.copyright-section { position: absolute; bottom: 12px; right: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; color: var(--secondary-text); text-align: right; display: flex; flex-direction: column; gap: 5px; z-index: 10; }
+@media (max-width: 768px) { .site-footer-modern { min-height: auto; padding: 20px; } .footer-container { height: auto; gap: 60px; } .footer-bottom-row { display: block; } .copyright-section { position: relative; bottom: auto; right: auto; text-align: left; margin-top: 30px; } .big-contact-title { font-size: 19vw; padding-right: 0; white-space: normal; } .link-row { padding: 25px 0; } .link-value { font-size: 1.1rem; } }
+
+/* Theme Toggle */
+.theme-btn { position: fixed; bottom: 30px; left: 30px; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-color); padding: 12px; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; z-index: 100; }

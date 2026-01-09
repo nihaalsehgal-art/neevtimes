@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neev Times</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header" id="navbar">
+        <div class="logo">Neev Times.</div>
+        <div class="nav-right">
+            
+            <div class="search-wrapper">
+                <input type="text" id="searchBar" class="search-input" placeholder="Search stories...">
+            </div>
+
+            <nav class="main-nav">
+                
+                <div class="nav-item">
+                    <span class="nav-link">Categories ▾</span>
+                    <div class="dropdown-menu">
+                        <a href="#">Politics</a>
+                        <a href="#">Economy</a>
+                        <a href="#">Technology</a>
+                        <a href="#">Culture</a>
+                        <a href="#">Design</a>
+                        <a href="#">Opinion</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <span class="nav-link">Editions ▾</span>
+                    <div class="dropdown-menu">
+                        <a href="#" target="_blank">Issue 41: Picture This <span class="badge">New</span></a>
+                        <a href="#" target="_blank">Issue 40: Rising Tides</a>
+                        <a href="#" target="_blank">Issue 39.5: NLF: Mini Edition</a>
+                        <a href="#" target="_blank">Issue 39: Pressing Play</a>
+                        <a href="#" target="_blank">Issue 01: All for One</a>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="herowave.jpeg" alt="The Tide of Change" class="hero-bg-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tagline">Special Report</span>
+            <h1>The Tide of Change</h1>
+            <p class="hero-sub">Navigating the currents of modern journalism in an era of digital overflow.</p>
+            <a href="#latest-news" class="hero-btn">Start Reading &darr;</a>
+        </div>
+    </section>
+
+    <main class="container" id="latest-news">
+        <div class="section-header">
+            <h2>Latest Stories</h2>
+            <hr class="divider">
+        </div>
+
+        <div id="articles-container" class="news-grid"></div>
+    </main>
+
+    <footer class="site-footer-modern">
+        <div class="footer-container">
+            
+            <div class="footer-links">
+                <div class="link-row">
+                    <span class="link-label">General</span>
+                    <a href="mailto:neevtimes@neevschools.com" class="link-value">neevtimes@neevschools.com</a>
+                </div>
+                
+                <div class="link-row">
+                    <span class="link-label">Student Editor</span>
+                    <a href="mailto:sahasra.nangineni@neevacademy.org" class="link-value">sahasra.nangineni@neevacademy.org</a>
+                </div>
+
+                <div class="link-row">
+                    <span class="link-label">Faculty Head</span>
+                    <a href="mailto:karthika.gopalakrishnan@neevschools.com" class="link-value">karthika.gopalakrishnan@neevschools.com</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom-row">
+                <h2 class="big-contact-title">contact us.</h2>
+                <div class="copyright-section">
+                    <span>&copy; 2026 Neev Times</span>
+                    <a href="#" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <button id="theme-toggle" class="theme-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
